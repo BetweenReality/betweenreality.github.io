@@ -1,0 +1,30 @@
+#errors_main {
+    text-align: center;
+    font-size: large;
+    font-style: italic;
+}
+#errors_main_nostyle {
+    text-align: center;
+    font-size: large;
+    font-style: normal;
+}
+#errors_sub {
+    text-align: center;
+    margin: 1em;
+}
+
+#errors_last_msg::before {
+    position: absolute;
+    /* bottom: 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center; */
+    /* TODO: Make this dynamic so that when the footer changes size this is still in the proper position */
+    top: calc(100vh - 325px);
+    font-size: small;
+    color: #888;
+    font-style: italic;
+    
+    white-space: pre;
+    content: "Notice: We are currently unable to establish an unexpressed access link between other realities at this time.\a Please contact your administrator for further instructions.";
+}

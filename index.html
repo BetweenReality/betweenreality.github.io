@@ -1,71 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>The Page Between Reality</title>
-		<meta charset="utf-8">
-		<link rel="icon" type="image/x-icon" href="media/images/page/favicon.ico">
-		<link rel="stylesheet" href="styles/main.css">
-	</head>
-	<body>
-		<header>
+    <head>
+        <title>The Page Between Reality</title>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/x-icon" href="/media/images/page/favicon.ico">
+        <link rel="stylesheet" href="/styles/global.css">
+        <link rel="stylesheet" href="/styles/main.css">
+    </head>
+    <body>
+        <header>
             <div id="topBar"></div>
-			<h1 id="title">
-                <a id="title_main" href="index.html">The Page Between Reality</a>
-            </h1>
-		</header>
-		<nav>
-            <a id="navLink" href="../index.html">Home</a>
-		</nav>
-        <div id="navBar"></div>
-		<main>
+            <h1 class="title-centered"><a id="title_main" href="/">The Page Between Reality</a></h1>
+        </header>
+        <nav id="navMain">
+            <div id="nav-links">
+                <a class="nav-link" href="/">Home</a>
+                • <a class="nav-link" href="/about.html">About</a>
+                <!-- • <a class="nav-link" href="/source_engine/the_stanley_parable/william_map_dump">TSP Beta</a> -->
+            </div>
+            <div id="nav-bar"></div>
+        </nav>
+        <main>
             <div id="axisBG"></div>
-			<div id="wrapper">
-                <div id="mainLogoArea">
-                    <div id="mainLogo"><img src="media/images/page/logo_0.png" width="256" height="256" alt="logo_0.png"></div>
-                </div>
+            <div id="wrapper">
+                <div id="mainLogoArea"><img src="/media/images/page/logo_0.png" width="256" height="256" alt="logo_0.png"></div>
                 <div id="link_socials_table">
                     <a class="link_socials" href="https://github.com/BetweenReality">Github</a>
                     <a class="link_socials" href="https://steamcommunity.com/id/BetweenReality/myworkshopfiles">Steam Workshop</a>
                     <a class="link_socials" href="https://www.youtube.com/channel/UCmZSzK7eHVIGG7qUH2I74DQ">Youtube</a>
                 </div>
-				<div id="mapTable">
-                    <h1 id="title2">
-                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3252271329">The Cara Discrepancy</a>
-                    </h1>
-                    <div id="map_images">
-                        <div>
-                            <a href="../media/images/source_engine/portal2/maps/the_cara_discrepancy/620_20240616200228_1.png">
-                                <img id="map_image" src="../media/images/source_engine/portal2/maps/the_cara_discrepancy/thumbs/620_20240616200228_1.png" width="384" height="216" alt="cara_0.png">
-                            </a>
-                            <a href="../media/images/source_engine/portal2/maps/the_cara_discrepancy/620_20240616200608_1.png">
-                                <img id="map_image" src="../media/images/source_engine/portal2/maps/the_cara_discrepancy/thumbs/620_20240616200608_1.png" width="384" height="216" alt="cara_1.png">
-                            </a>
-                            <a href="../media/images/source_engine/portal2/maps/the_cara_discrepancy/620_20240616200433_1.png">
-                                <img id="map_image" src="../media/images/source_engine/portal2/maps/the_cara_discrepancy/thumbs/620_20240616200433_1.png" width="384" height="216" alt="cara_2.png">
-                            </a>
-                            <a href="../media/images/source_engine/portal2/maps/the_cara_discrepancy/620_20240616200529_1.png">
-                                <img id="map_image" src="../media/images/source_engine/portal2/maps/the_cara_discrepancy/thumbs/620_20240616200529_1.png" width="384" height="216" alt="cara_3.png">
-                            </a>
-                            <a href="../media/images/source_engine/portal2/maps/the_cara_discrepancy/620_20240616200326_1.png">
-                                <img id="map_image" src="../media/images/source_engine/portal2/maps/the_cara_discrepancy/thumbs/620_20240616200326_1.png" width="384" height="216" alt="cara_4.png">
-                            </a>
-                            <a href="../media/images/source_engine/portal2/maps/the_cara_discrepancy/620_20240616200902_1.png">
-                                <img id="map_image" src="../media/images/source_engine/portal2/maps/the_cara_discrepancy/thumbs/620_20240616200902_1.png" width="384" height="216" alt="cara_5.png">
-                            </a>
+                <br>
+                <div class="shadow-box">
+                    <h1 class="title-centered map-table-title text-color-dark-green-glow">My Work</h1>
+                    <div class="shadow-box">
+                        <h1 class="title-centered map-table-title">PMaM Microcomp Season 1 (Winning Entries)</h1>
+                        <div class="map-table-images div-side-align-center">
+                            <div class="map-table-image-container">
+                                <h2 class="map-table-image-title">Microcomp 1: Orange</h2>
+                                <img class="image-border" src="media/images/source_engine/pmam/microcomp/my_entries/pmam_orange_comp_final2.png" width="384" height="216" alt="pmam_microcomp_orange.png">
+                            </div>
+                            <div class="map-table-image-container">
+                                <h2 class="map-table-image-title">Microcomp 2: Soggy</h2>
+                                <img class="image-border" src="media/images/source_engine/pmam/microcomp/my_entries/pmam_soggy_comp_final2.png" width="384" height="216" alt="pmam_microcomp_soggy.png">
+                            </div>
+                            <div class="map-table-image-container">
+                                <h2 class="map-table-image-title">Microcomp 3: Ancient</h2>
+                                <img class="image-border" src="media/images/source_engine/pmam/microcomp/my_entries/pmam_ancient_comp_final2.png" width="384" height="216" alt="pmam_microcomp_ancient.png">
+                            </div>
+                            <!-- <div class="map-table-image-container">
+                                <h2 class="map-table-image-title">Microcomp 3: Winter</h2>
+                                <img class="image-border" src="media/images/source_engine/pmam/microcomp/my_entries/pmam_winter_comp_final2.png" width="384" height="216" alt="pmam_microcomp_winter.png">
+                            </div> -->
                         </div>
                     </div>
-                    <div id="todo_bottom">
-                        Nothing more to see (yet)
+                    <br>
+                    <div class="shadow-box">
+                        <div class="div-side-align-center">
+                            <a class="no-decoration" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3252271329"><h1>[↗]</h1></a>
+                            <h1 class="map-table-title">The Cara Discrepancy</h1>
+                        </div>
+                        <h3 class="text-center">2nd place in the PMaM "Redemption Arc" Competition</h3>
+                        <div class="map-table-images div-side-align-center">
+                            <img class="image-border" src="media/images/source_engine/portal_2/maps/the_cara_discrepancy/620_20240616200228_1.png" width="384" height="216" alt="cara_0.png">
+                            <img class="image-border" src="media/images/source_engine/portal_2/maps/the_cara_discrepancy/620_20240616200608_1.png" width="384" height="216" alt="cara_1.png">
+                            <img class="image-border" src="media/images/source_engine/portal_2/maps/the_cara_discrepancy/620_20240616200433_1.png" width="384" height="216" alt="cara_2.png">
+                            <img class="image-border" src="media/images/source_engine/portal_2/maps/the_cara_discrepancy/620_20240616200529_1.png" width="384" height="216" alt="cara_3.png">
+                            <img class="image-border" src="media/images/source_engine/portal_2/maps/the_cara_discrepancy/620_20240616200326_1.png" width="384" height="216" alt="cara_4.png">
+                            <img class="image-border" src="media/images/source_engine/portal_2/maps/the_cara_discrepancy/620_20240616200902_1.png" width="384" height="216" alt="cara_5.png">
+                        </div>
                     </div>
-				</div>
-			</div>
-		</main>
-	</body>
-	<footer>
-		<div id="bottomBar"></div>
-		<p id="bottomText">
-            Don't click these, they don't do anything.<br>
-			<a href="about.html">About</a> • <a href="contact.html">Contact</a><br>
-		</p>
-	</footer>
+                    <br><br>
+                    <div id="todo_bottom">Nothing more to see (yet)</div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div id="bottomBar"></div>
+            <p id="bottom-text">
+                Copyright © 2024 BetweenReality<br>
+                <i>Looks like you've reached the bottom. There is nothing more for you here. Turn back before it is too late...</i>
+                <!-- (Don't click these, they don't do anything.)<br> -->
+                <!-- <a href="/about.html">About</a> -->
+                <!-- • <a href="/contact.html">Contact</a><br> -->
+            </p>
+        </footer>
+    </body>
+    
 </html>

@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>The Page Between Reality</title>
-		<meta charset="utf-8">
-		<link rel="icon" type="image/x-icon" href="media/images/page/icon_-1.ico">
-		<link rel="stylesheet" href="styles/main.css">
-	</head>
-	<body>
-		<header>
-            <div id="logo">
-				<a href="index.html"><img src="media/images/page/logo_-1_thumb.png" width="64" height="64" alt="logo_-1_thumb.png"></a>
-			</div>
-			<h1 id="title">Error 404: Page not found</h1>
-		</header>
-		<nav>
-            <a id="navLink" href="../index.html">Home</a>
-		</nav>
-        <div id="navBar"></div>
-		<main>
-			<div id="wrapper">
+    <head>
+        <title>The Page Between Reality</title>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/x-icon" href="/media/images/page/icon_-1.ico">
+        <link rel="stylesheet" href="/styles/global.css">
+        <link rel="stylesheet" href="/styles/errors.css">
+    </head>
+    <body class="container">
+        <header>
+            <a id="logo" href="/"><img src="/media/images/page/logo_-1_thumb.png" width="64" height="64" alt="logo_-1_thumb.png"></a>
+            <h1 class="title-centered">Error 404: Page not found</h1>
+        </header>
+        <nav id="navMain">
+            <div id="nav-links">
+                <a class="nav-link" href="/">Home</a>
+                • <a class="nav-link" href="/about.html">About</a>
+                <!-- • <a class="nav-link" href="/source_engine/the_stanley_parable/william_map_dump">TSP Beta</a> -->
+            </div>
+            <div id="nav-bar"></div>
+        </nav>
+        <main>
+            <div id="wrapper">
                 <div id="errors_main">
                     This page does not exist
                 </div>
                 <div id="errors_sub">
-                    It may exist in a different reality, but we are unable to detect it in ours
+                    It may exist in another reality, but we are unable to detect it in ours
                 </div>
-                <div id="errors_last">
-                    Notice: We are currently unable to establish an unexpressed access link between other realities at this time.<br>
-                    Please contact your administrator for further instructions.
-                </div>
-			</div>
-		</main>
-	</body>
-	<footer>
-		<div id="bottomBar"></div>
-		<p id="bottomText">
-            Don't click these, they don't do anything.<br>
-			<a href="about.html">About</a> • <a href="contact.html">Contact</a><br>
-		</p>
-	</footer>
+                <div id="errors_last_msg"></div>
+            </div>
+        </main>
+        <footer>
+            <div id="bottomBar"></div>
+            <p id="bottom-text">
+                Copyright © 2024 BetweenReality<br>
+                <i>Looks like you've reached the bottom. There is nothing more for you here. Turn back before it is too late...</i>
+                <!-- (Don't click these, they don't do anything.)<br> -->
+                <!-- <a href="/about.html">About</a> -->
+                <!-- • <a href="/contact.html">Contact</a><br> -->
+            </p>
+        </footer>
+    </body>
 </html>
