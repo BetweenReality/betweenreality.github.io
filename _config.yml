@@ -1,0 +1,35 @@
+domain: betweenreality.github.io
+url: https://betweenreality.github.io
+
+plugins:
+  - jekyll-watch
+  - jekyll-livereload
+
+verbose: true
+
+# NOTE: livereload doesn't work with localhost for whatever reason
+#  Additionally, livereload doesn't work if there isn't any *.markdown or *.md files in the repo. ???
+#  TODO: ↑ This also generates a useless html file though that can be accessed
+#  NOTE: Actually it just seems like livereload decides to not work randomly sometimes. Amazing.
+#  NOTE: Actually actually it looks like it stops working when there is an error in the liquid code, but it decides to just not say anything in the output unless I fully reload the server
+# host: localhost
+# host: 127.0.0.1 
+port: 5500 # Same port as VSCode "Live Server" Extension
+livereload: true
+# NOTE: This makes the page open twice, I think setting livereload to true also opens a page?
+# open_url: true
+
+# HACK: Set include directory to root, because include_relative doesn't accept "../" so this allows us to use any directory we want
+# includes_dir: .
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: page
+      
+      title: "The Page Between Reality"
+      type: "sub"
+      
+      header_logo: true
