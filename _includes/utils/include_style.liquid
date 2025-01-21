@@ -1,0 +1,40 @@
+{% comment -%}
+    This script checks if the given styles already exist (via the page_head_content variable defined in private/variables.liquid) and only includes them if they don't
+    Useful for templates that need a certain style that the document may not already have
+    Parameters:
+        styles = The path to the styles to add, separated by commas
+        noscript = (Default False) boolean indicating whether or not to add a <noscript> tag to the style
+        NOTE: The style must be a PATH, not the style link element (AKA the href you would use for the link)
+    TODO: Figure out a way to include these styles in the head instead of in the middle of a document where this script is used
+{% endcomment -%}
+
+{% comment %} Convert to array {% endcomment -%}
+{% assign styles = include.styles | split: "," -%}
+
+{% assign noscript_start = "" -%}
+{% assign noscript_end = "" -%}
+{% if include.noscript == true -%}
+    {% assign noscript_start = "<noscript>" -%}
+    {% assign noscript_end = "</noscript>" -%}
+{% endif -%}
+
+{% comment %} Convert to full style element {% endcomment -%}
+{% assign styles_new = "" | split: "" -%}
+{% for s in styles -%}
+    {% capture style_full %}{{ noscript_start }}<link rel="stylesheet" href="{{ s | strip }}">{{ noscript_end }}{% endcapture -%}
+    {% assign styles_new = styles_new | push: style_full -%}
+{% endfor -%}
+{% assign styles = styles_new -%}
+
+{% comment %} Compare every style with every style we already have {% endcomment -%}
+{% for c in page_head_content -%}
+    {% assign styles_new = "" | split: "" -%}
+    {% for s in styles -%}
+        {% comment %} If the styles match, remove it from the array {% endcomment -%}
+        {% assign s2 = s | remove: c -%}
+        {% assign styles_new = styles_new | push: s2 -%}
+    {% endfor -%}
+    {% assign styles = styles_new -%}
+{% endfor -%}
+{% comment %} Output the styles {% endcomment -%}
+{% for s in styles -%}{{ s }}{% endfor -%}

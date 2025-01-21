@@ -1,0 +1,20 @@
+---
+layout: default
+
+head_content: <link rel="stylesheet" href="/styles/errors.css">
+
+no_scrollbutton: true
+---
+
+{% include private/variables.liquid -%}
+
+<div id="wrapper">
+    <div id="errors_main_nostyle">
+        {{ page.error_text_main }}
+    </div>
+    <div id="errors_sub">
+        {{ page.error_text_sub }}
+    </div>
+    
+    {% include p.liquid n="notices/unexpressed_access.html" i=1 %}
+</div>

@@ -1,0 +1,2 @@
+/* Disable youtube embeds when javascript is disabled. This stylesheet should be loaded via a noscript tag */
+.youtube-embed { display: none; }

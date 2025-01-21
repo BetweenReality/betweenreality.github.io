@@ -2,34 +2,38 @@ domain: betweenreality.github.io
 url: https://betweenreality.github.io
 
 plugins:
-  - jekyll-watch
-  - jekyll-livereload
+    - jekyll-watch
+    - jekyll-livereload
 
 verbose: true
 
-# NOTE: livereload doesn't work with localhost for whatever reason
-#  Additionally, livereload doesn't work if there isn't any *.markdown or *.md files in the repo. ???
-#  TODO: ↑ This also generates a useless html file though that can be accessed
-#  NOTE: Actually it just seems like livereload decides to not work randomly sometimes. Amazing.
-#  NOTE: Actually actually it looks like it stops working when there is an error in the liquid code, but it decides to just not say anything in the output unless I fully reload the server
-# host: localhost
-# host: 127.0.0.1 
+# host: localhost # NOTE: livereload doesn't work with localhost for whatever reason. Use the default 127.0.0.1 instead
 port: 5500 # Same port as VSCode "Live Server" Extension
 livereload: true
-# NOTE: This makes the page open twice, I think setting livereload to true also opens a page?
-# open_url: true
+# open_url: true # NOTE: This makes the page open twice, I think setting livereload to true also opens a page?
 
-# HACK: Set include directory to root, because include_relative doesn't accept "../" so this allows us to use any directory we want
+# HACK: Use this to set include directory to root, because include_relative doesn't accept "../" so this allows us to use any directory we want
 # includes_dir: .
 
 defaults:
-  -
-    scope:
-      path: ""
-    values:
-      layout: page
-      
-      title: "The Page Between Reality"
-      type: "sub"
-      
-      header_logo: true
+    - # Defaults for all pages
+        scope:
+            path: ""
+        values:
+            # Default assumes all pages are in their own subfolders (the subfolder will become the page name, and the html file can have any name)
+            permalink: /:path/index:output_ext
+            layout: default
+            title: "The Page Between Reality"
+    - # All sub pages are typically going to be in here
+        scope:
+            path: "pages"
+        values:
+            type: sub
+            header_logo: true
+    - # Error pages
+        scope:
+            path: "pages/errors"
+        values:
+            permalink: /:basename:output_ext # Error pages must be in root for github to know where they are
+            layout: error
+            type: error

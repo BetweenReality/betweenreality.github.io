@@ -1,0 +1,82 @@
+{% comment -%}
+    "prettify.html" is a top-level layout designed to prettify the jekyll _site output files
+    Normally when including a file Jekyll puts the contents in raw, making no attempt to match the current indentation. This fixes that and applies the proper indentation to the output
+    This is purely cosmetic (or for easier debugging of the output) and is otherwise functionally identical to using regular includes
+    
+    To Use:
+        Inherit this layout in your layout
+        All include files must have these two markers added to them:
+            ~+~ at the top, and ~-~ at the bottom. Both must have no leading or trailing whitespace and must be completely on their own lines
+    
+    Make sure to also use whitespace control on the Liquid you have in your html files for further prettiness
+    As a baseline:
+        - Always use whitespace control for tags that are at the end of a line
+        - Do not add whitespace control to one-line if statements that add / remove a piece of HTML. This will generate a blank line, which this script will remove
+    You might need more or less whitespace control to get the output you want depending on the structure of your code
+    
+    WORKAROUND: Is there any way to detect includes without needing to manually add the markers?
+    
+    I feel like both methods for indentation-correction have their own benefits and drawbacks
+    This method lets you write everything like normal, except basically every file that isn't a layout needs markers added to the beginning and end. That's useful since you only ever need to add the markers as if it was builtin syntax and that's all, but now there is the additional overhead of needing to do that for every new file you create (that isn't a layout). This one is also more complex code-wise, needing to calculate the indentation itself
+    The other method forces you to instead modify the include syntax and manually input the indentation amount (which might change if the page changes so you would have to modify this number again yourself), but it leaves everything else alone. It's also not perfect and in some edge cases it doesn't work fully.
+    Ultimately I think the original method is better since I don't use includes as much as I make new files, since I only really ever use includes in layouts and for notices, and it isn't too often that I modify or use those.
+{% endcomment -%}
+
+{% assign ___content = content | split: "
+" -%}
+
+{% assign ___include_begin = "~+~" -%}
+{% assign ___include_end   = "~-~" -%}
+
+{% assign ___include_nesting = 0 -%}
+
+{% comment %} Padding is an array, where each index holds the padding for the current nesting {% endcomment -%}
+{% assign ___line_padding = "" | split: "" -%}
+
+{% for ___line in ___content -%}
+    {% capture ___line_stripped %}{{ ___line | strip }}{% endcapture -%}
+    
+    {% comment %} Test for includes {% endcomment -%}
+    {% if ___line_stripped == ___include_begin -%}
+        {% assign ___include_nesting = ___include_nesting | plus: 1 -%}
+        
+        {% comment %} Store current line padding {% endcomment -%}
+        {% capture ___line_padding_text %}{{ ___line | split: ___include_begin }}{% endcapture -%}
+        {% assign ___line_padding = ___line_padding | push: ___line_padding_text -%}
+        
+        {% comment %} If we found either marker then we skip outputting this line since it's not meant for the output {% endcomment -%}
+        {% continue -%}
+    {% elsif ___line_stripped == ___include_end -%}
+        {% assign ___include_nesting = ___include_nesting | minus: 1 -%}
+        
+        {% comment %} HACK: Remove last index from padding array by manually looping through the entire thing and skipping the last one. The last index is determined by the ___include_nesting variable {% endcomment -%}
+        {% assign ___padding_remove_index = 0 -%}
+        {% assign ___line_padding_new = "" | split: "" -%}
+        {% for ___padding in ___line_padding -%}
+            {% comment %} If we are at the current include nesting index that means we are at the last index in the array, so skip it {% endcomment -%}
+            {% if ___padding_remove_index == ___include_nesting %}{% break %}{% endif -%}
+            {% assign ___line_padding_new = ___line_padding_new | push: ___padding -%}
+            {% assign ___padding_remove_index = ___padding_remove_index | plus: 1 -%}
+        {% endfor -%}
+        {% comment %} Assign the original array to the modified one {% endcomment -%}
+        {% assign ___line_padding = ___line_padding_new -%}
+        
+        {% continue -%}
+    {% endif -%}
+    
+    {% comment %} Add padding, assuming we are in an include block {% endcomment -%}
+    {% if ___include_nesting > 0 -%}
+        {% comment %} Remove empty lines {% endcomment -%}
+        {% comment %} TODO: This kills all intentional blank lines in includes {% endcomment -%}
+        {% capture __line_size %}{{ ___line_stripped | size }}{% endcapture -%}
+        {% if __line_size == "0" %}{% continue %}{% endif -%}
+        
+        {% capture ___line_new %}{{ ___line_padding | join: ""}}{{ ___line }}{% endcapture -%}
+    {% else -%}
+        {% comment %} No padding needed, output the regular line {% endcomment -%}
+        {% assign ___line_new = ___line -%}
+    {% endif -%}
+    
+{% comment %} Output the line. Must not be indented here to prevent adding any extra whitespace. Similar story for the endfor after it {% endcomment -%}
+{{ ___line_new }}
+{% endfor -%}

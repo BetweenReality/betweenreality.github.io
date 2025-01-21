@@ -1,0 +1,23 @@
+{% comment %} This is meant to quickly create a youtube embed. Since I try and remove as much garbage as possible it helps to have this as a template {% endcomment -%}
+{% comment %} NOTE: When using this make sure that the allow-same-origin attribute is enabled, otherwise the embed fails {% endcomment -%}
+{% comment %}
+    Parameters:
+    video  = (Required) The id of the youtube video to embed
+    class  = (Default "image-border" The class(es) to add to the iframe
+    id     = (Optional) The id to add to the iframe
+    width  = (Default 384) The width of the iframe
+    height = (Default 216) The height of the iframe
+{% endcomment -%}
+
+{% assign _yt_embed_class  = include.class  -%}
+{% assign _yt_embed_id     = include.id     -%}
+{% assign _yt_embed_width  = include.width  -%}
+{% assign _yt_embed_height = include.height -%}
+
+{% if _yt_embed_class  == nil %}{% assign _yt_embed_class  = "image-border" %}{% endif -%}
+{% if _yt_embed_width  == nil %}{% assign _yt_embed_width  = "384" %}{% endif -%}
+{% if _yt_embed_height == nil %}{% assign _yt_embed_height = "216" %}{% endif -%}
+
+{% include utils/include_style.liquid styles="/styles/youtube_embed.css" noscript=true %}
+<iframe {% if include.id != nil %}id="{{ include.id }}" {% endif -%} class="youtube-embed {{ _yt_embed_class }}" loading="lazy" sandbox="allow-scripts allow-same-origin" referrerpolicy="no-referrer" src="https://www.youtube-nocookie.com/embed/{{ include.video }}?autoplay=0?&enablejsapi=0&modestbranding=1&iv_load_policy=3&playsinline=0" width="{{ _yt_embed_width }}" height="{{ _yt_embed_height }}" frameborder="0"></iframe>
+<noscript><img class="image-border" src="/media/images/youtube_requires_javascript.png" width="384" height="216"></noscript>

@@ -1,0 +1,7 @@
+{% if page_no_scrollbutton != "true" -%}
+
+<div id="scroll-to-top-container"><a id="scroll-to-top" href="#">∧</a></div>
+<!-- The HTML method above changes the URL and adds to the browser history, which is less than ideal but it works. For those who use Javascript we can fix that problem -->
+<script src="/scripts/fix_scroll_to_top.js"></script>
+
+{% endif -%}

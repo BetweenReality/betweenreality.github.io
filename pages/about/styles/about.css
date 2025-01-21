@@ -1,0 +1,27 @@
+/* Override */
+#wrapper {
+    flex-direction: row;
+}
+
+/* Override */
+.shadow-box {
+    padding: 30px 40px 20px 40px;
+}
+
+#about-box {
+    max-width: 90%;
+}
+
+.logo-image-container {
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.logo-image-title {
+    font-size: 1.25em;
+    font-weight: bold;
+    margin: 0px 0px 10px 0px;
+}
+.logo-image-subtitle {
+    margin: 0px 0px 10px 0px;
+}

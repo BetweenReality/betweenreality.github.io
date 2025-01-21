@@ -1,9 +1,8 @@
 <header>
     {% if page_header_topbar == true %}<div id="topBar"></div>{% endif %}
-    {% if page_header_logo == true %}<a id="logo" href="/"><img src="/media/images/page/logo_{{ page_logo }}_thumb.png" width="64" height="64" alt="logo_{{ page_logo }}_thumb.png"></a>{% endif %}
+    {% if page_header_logo == true %}<a id="logo" href="/"><img src="/media/images/page/logos/logo_{{ page_logo }}_thumb.png" width="64" height="64" alt="logo_{{ page_logo }}_thumb.png"></a>{% endif %}
     <h1 class="title-centered">
         {% if page_header_title_link == true %}<a id="title_main" href="/">{{ page_subtitle }}</a>
-        {% else %}{{ page_subtitle }}
-        {% endif %}
+        {%- else %}{{ page_subtitle }}{% endif %}
     </h1>
 </header>

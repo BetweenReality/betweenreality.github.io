@@ -1,0 +1,75 @@
+{% comment %}
+    This file holds all global variables to be used on the website
+    NOTE: We include this in ALL layout files (not just the top level parent layout, because it doesn't work otherwise) so that these will always be available for every page
+    TODO: Inheritance in Jekyll is finicky, so sometimes variables don't work as you would expect. I mostly solved the problem for 1 layer of inheritance (default > layout2), but I didn't test 2 or more
+{% endcomment -%}
+
+{% comment %} Option to disable default variable stuff, if you need to for some reason {% endcomment -%}
+{% if page.no_vars != true or layout.no_vars != true -%}
+
+{% comment %} Utilities {% endcomment -%}
+{% assign _newline = "
+" -%}
+{% capture _doublequote %}"{% endcapture -%}
+
+{% comment %} WORKAROUND: Capture all the "page" variables into regular ones since it doesn't look like you can modify them otherwise. {% endcomment -%}
+{% comment %} 
+    TODO: Maybe there's a better way to do this
+    I have to check both because Jekyll is kinda dumb and layouts set their own variables
+    Jekyll apparently has separate variables for both the "page" and "layout", which I guess that could be useful maybe in some scenarios but in my case it just makes things worse because I want to use these variables as if they were inherited. Meaning, the "layout" variable should hold the default value and the "page" variable overridess it. Currently that doesn't happen and instead either layout or page is set and the other becomes nil. If both are set they can potentially be different values, which is not what I want.
+    There are two methods to solve this: Set a new variable, prioritizing "page" if it exists, or set a new variable appending both "page" and "layout" to each other. These two are likely case-dependant for each variable and what they are used for
+{% endcomment -%}
+
+{% capture page_title -%}
+    {% comment %} Special case because we set the default in _config.yml. We check layout first instead of page so inheritance to work like we expect {% endcomment -%}
+    {% if layout.title != nil %}{{ layout.title -}}
+    {% else %}{{ page.title }}{% endif -%}
+{% endcapture -%}
+
+{% comment %} FIX: Fix these for the layout versions of the variables {% endcomment -%}
+{% assign page_type = page.type -%}
+{% assign page_subtitle = page.subtitle -%}
+{% assign page_header_topbar = page.header_topbar -%}
+{% assign page_header_title_link = page.header_title_link -%}
+
+{% comment %} Header logo {% endcomment %}
+{% if page.header_logo != nil %}{% assign page_header_logo = page.header_logo -%}
+{% else %}{% assign page_header_logo = layout.header_logo %}{% endif -%}
+
+{% comment %} Head Content {% endcomment -%}
+{% comment %} Merge the two into an array {% endcomment -%}
+{% comment %} TODO: Add real newlines to the end of each line, excluding the last one {% endcomment -%}
+{% assign page_head_content = "" | split: "" -%}
+{% capture page_head_content -%}
+    {% if page.head_content != nil %}{{ page.head_content | join: "," -}},{% endif -%}
+    {% if layout.head_content != nil %}{{ layout.head_content | join: "," -}}{% endif -%}
+{% endcapture -%}
+{% assign page_head_content = page_head_content | split: "," -%}
+
+{% comment %} NOTE: no_scrollbutton must always be set manually for pages that are not long enough. Page length varies by screen size so this is up to discretion {% endcomment -%}
+{% comment %} This could be done via javascript but obviously it wouldn't work without it so we have to do this instead {% endcomment -%}
+{% capture page_no_scrollbutton -%}
+    {% if page.no_scrollbutton != nil %}{{ page.no_scrollbutton -}}
+    {% else %}{{ layout.no_scrollbutton }}{% endif -%}
+{% endcapture -%}
+
+{% comment %} Defaults {% endcomment -%}
+
+{% comment %} Set subtitle the same as title by default {% endcomment -%}
+{% if page_subtitle == nil %}{% assign page_subtitle = page.title %}{% endif -%}
+
+{% comment %} Set page type-specific values {% endcomment -%}
+{% if page_type == "error" -%}
+    {% if page_logo == nil %}{% assign page_logo = -1 %}{% endif -%}
+{% elsif page_type == "main" -%}
+    {% if page_logo              == nil %}{% assign page_logo              = 0     %}{% endif -%}
+    {% if page_header_logo       == nil %}{% assign page_header_logo       = false %}{% endif -%}
+    {% if page_header_topbar     == nil %}{% assign page_header_topbar     = true  %}{% endif -%}
+    {% if page_header_title_link == nil %}{% assign page_header_title_link = true  %}{% endif -%}
+{% elsif page_type == "sub" -%}
+    {% if page_logo == nil %}{% assign page_logo = 3 %}{% endif -%}
+{% elsif page_type == "special" -%}
+    {% if page_logo == nil %}{% assign page_logo = 6 %}{% endif -%}
+{% endif -%}
+
+{% endif -%} {% comment %} page.no_vars check {% endcomment -%}

@@ -1,10 +1,10 @@
 <footer>
     <div id="bottomBar"></div>
-    <p id="bottom-text">
-        Copyright © 2024 BetweenReality<br>
+    <div id="bottom-text">
+        {% comment %} Auto update year so I never have to think about this again (unless I don't update any part of the entire site for an entire year) {% endcomment -%}
+        Copyright © {{ site.time | date: "%Y" }} BetweenReality<br>
+        Site Last Updated: {{ site.time | date: "%B %d, %Y" }}<br>
+        <a href="/pages/about">About</a> • <a href="/pages/contact">Contact</a><br>
         <i>Looks like you've reached the bottom. There is nothing more for you here. Turn back before it is too late...</i>
-        <!-- (Don't click these, they don't do anything.)<br> -->
-        <!-- <a href="/about.html">About</a> -->
-        <!-- • <a href="/contact.html">Contact</a><br> -->
-    </p>
+    </div>
 </footer>

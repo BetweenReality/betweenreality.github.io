@@ -1,0 +1,85 @@
+{% comment %} TODO: Replace this with a better automatic method via custom Jekyll plugins and the upload-pages-artifact github action {% endcomment -%}
+
+{% comment -%}
+    "prettify.liquid" is an include designed to prettify the jekyll _site output files
+    Normally when including a file Jekyll puts the contents in raw, making no attempt to match the current indentation. This fixes that and applies the proper indentation to the output
+    This is purely cosmetic (or for easier debugging of the output) and is otherwise functionally identical to using regular includes
+    
+    Make sure to also use whitespace control on the Liquid you have in your html files for further prettiness
+    As a baseline:
+        - Always use righthand whitespace control for tags that are at the end of a line. Sometimes you might need to use left whitespace control instead
+        - Do not add whitespace control to one-line if statements that add / remove a piece of HTML (it will concatenate some lines of HTML). This will generate a blank line instead, which this script will remove
+    You might need more or less whitespace control to get the output you want depending on the structure of your code
+    
+    To use, simply include this file instead of the file you want to include and fill in these variables:
+        n ("Name") = The Path to the file include. Same syntax as for regular includes, except must be in quotes
+        c ("Content") = Actual content to prettify instead of an include file. In this case leave Name blank
+        TODO: p ("Parameters") = The parameters to pass to the include. Same syntax as regular includes except double qoutes should be replaced with single quotes (They will get converted). Two single quotes in a row outputs one single quote.
+            NOTE: This seems impossible, since liquid can't seem to expand variables into the include statement so it just errors out as invalid syntax
+        i ("Indent") = Number of indentations to add. Set this to the number of indentations that the line of your include has
+        t ("Tab Size") = (Optional) Amount of spaces to add per indentation
+    NOTE: Parameters are 1 letter long to make these includes as hassle-free as possible. Similarly the location and name of this file are also simplified
+    WARNING: "Name" and "Content" should not both be used at once. Similarly, "Indent" is NOT optional. This script makes no attempt to ensure that you follow these rules
+    
+    WORKAROUND: There doesn't seem to be any possible way to get the absolute indentation level in the parent file automatically. It must always be specified manually using the indent parameter above
+{% endcomment -%}
+
+{% comment %} Set variables to more readable names {% endcomment -%}
+{% assign __p_include_name     = include.n -%}
+{% assign __p_include_content  = include.c -%}
+{% comment %} {% assign __p_include_params   = include.p -%} {% endcomment -%}
+{% assign __p_include_indent   = include.i -%}
+{% assign __p_include_tab_size = include.t -%}
+
+{% comment %} {% assign __p_include_params = __p_include_params | replace: "'", _doublequote -%} {% endcomment -%}
+
+{% comment %} Capture content from the include {% endcomment -%}
+
+{% capture __p_content -%}
+    {% if __p_include_name != nil -%}{% include {{ __p_include_name }} -%}
+    {% elsif __p_include_content != nil -%}{{ __p_include_content }}{% endif -%}
+{% endcapture -%}
+
+{% comment %} Get lines. Split via actual newline because it doesn't recognize "\n" {% endcomment -%}
+{% assign __p_content = __p_content | split: "
+" -%}
+
+{% comment %} Set tab size. Default is 4 {% endcomment -%}
+{% assign __p_tab_size = 4 -%}
+{% if __p_include_tab_size != nil -%}
+    {% assign __p_tab_size = __p_include_tab_size | to_integer -%}
+{% endif -%}
+
+{% assign __p_is_first_line = true -%}
+
+{% comment %} Capture prettified output {% endcomment -%}
+{% comment %} WORKAROUND: We capture instead of directly outputting because there is a stray newline added to the end otherwise {% endcomment -%}
+{% capture __p_new_content -%}
+    {% for __p_line in __p_content -%}
+        {% comment %} Remove empty lines {% endcomment -%}
+        {% comment %} TODO: This removes all intentional blank lines too {% endcomment -%}
+        {% comment %} {% assign __p_line_size = __p_line | strip | size -%}
+        {% if __p_line_size == 0 %}{% continue %}{% endif -%} {% endcomment -%}
+        
+        {% comment %} Get whitespace amount from include variable {% endcomment -%}
+        {% assign __p_max_spaces = __p_include_indent | times: __p_tab_size -%}
+        {% assign __p_spaces = "" -%}
+        
+        {% comment %} Skip adding whitespace to first line since it should already be at the proper indent level via the include statement {% endcomment -%}
+        {% if __p_is_first_line == false -%}
+            {% comment %} Write whitespace to variable {% endcomment -%}
+            {% for i in (1..__p_max_spaces) -%}
+                {% assign __p_spaces = __p_spaces | append: " " -%}
+            {% endfor -%}
+        {% else -%}
+            {% assign __p_is_first_line = false -%}
+        {% endif -%}
+        
+{% comment %} Output the line. Must not be indented here to prevent adding any extra whitespace. Similar story for the endfor after it {% endcomment -%}
+{{ __p_spaces }}{{ __p_line }}
+{% endfor -%}
+
+{% endcapture -%}
+
+{% comment %} Output the final content {% endcomment -%}
+{{ __p_new_content | strip -}}

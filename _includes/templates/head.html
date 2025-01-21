@@ -1,7 +1,9 @@
 <head>
     <title>{{ page_title }}</title>
     <meta charset="utf-8">
-    <link rel="icon" type="image/x-icon" href="/media/images/page/icon_{{ page_logo }}.ico">
+    <meta name="referrer" content="no-referrer" /> <!-- Screw websites that track everything -->
+    {% comment %} <meta name="viewport" content="width=device-width, initial-scale=1"> {% endcomment -%}
+    <link rel="icon" type="image/x-icon" href="/media/images/page/logos/icon_{{ page_logo }}.ico">
     <link rel="stylesheet" href="/styles/global.css">
-    {{ page_header_content }}
+    {{ page_head_content }}
 </head>

@@ -1,14 +1,18 @@
-<!-- NOTE: This gets included in the middle of the document, not in the head -->
-<link rel="stylesheet" href="/styles/errors.css">
+{% include utils/include_style.liquid styles="/styles/includes/notices/unfinished.css" %}
 
-<!-- Margin must be the same all around for the frame to be centered -->
-<!-- <div class="shadow-box" style="margin: 15px 15px 25px 25px"> -->
-<div class="shadow-box" style="margin: 25px">
-    <h1 class="title-centered text-shadow-green-less">
+<div id="unfinished-main-container" class="shadow-box">
+    <h1 class="title-centered text-shadow-orange-less">
         This page is Unfinished
     </h1><br>
-    <div id="errors_main">
-        Cleverly done, Mr. Freeman, but you're not supposed to be here. As a matter of fact, you're not.<br>Get back where you belong, and forget about all this, until we meet again.
+    <div id="unfinished-text-container" class="title-centered">
+        <div id="unfinished-button">
+            <!-- HACK: There is no cross-browser way to style the audio player so I must use javascript here. This isn't vital though so it's fine -->
+            <button id="cleverly-done" onClick="gman_onclick()">🕨</button>
+            <script src="/scripts/includes/notices/unfinished.js"></script>
+        </div>
+        <div id="unfinished-text">
+            Cleverly done, Mr. Freeman, but you're not supposed to be here. As a matter of fact, you're not.<br>
+            Get back where you belong, and forget about all this, until we meet again...
+        </div>
     </div>
 </div>
-<br><br>

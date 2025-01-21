@@ -1,0 +1,38 @@
+{%- comment %}
+    This is the main layout template used for all pages (even the main page)
+    Any other layouts act more as templates, such as the error layout (which inherits this one)
+    Other layouts likely shouldn't be required, but perhaps there's an edge case I didn't think of
+{% endcomment -%}
+
+{% comment %} TODO: Mobile version of all pages (so it doesn't look horendous on small width screens) {% endcomment -%}
+{% comment %} TODO: Potentially fix the "wrapper" scenario so I don't need to use that everywhere {% endcomment -%}
+{% comment %} TODO: Convert applicable divs to more semantic elements for better readability {% endcomment -%}
+{% comment %} TODO: General cleanup of CSS styling {% endcomment -%}
+{% comment %}
+    TODO: Finish / Create pages:
+    - TSP Beta
+    - Resources
+    - Maps (Showcase)
+    - Programming (Showcase)
+    - Directory listing + Site overview
+{% endcomment -%}
+{% comment %} 
+    TODO: Replace pretty.liquid with a Jekyll plugin-based solution
+    Setting up custom plugin support on Github Pages: https://jekyllrb.com/docs/continuous-integration/github-actions/
+{% endcomment -%}
+
+{% include private/variables.liquid -%}
+
+<!DOCTYPE html>
+<html lang="en">
+    {% include p.liquid i=1 n="templates/head.html" %}
+    <body>
+        {% include p.liquid i=2 n="templates/header.html" %}
+        {% include p.liquid i=2 n="templates/nav.html" %}
+        <main>
+            {% include p.liquid i=3 n="notices/scroll_to_top.html" %}
+            {% include p.liquid i=3 c=content %}
+        </main>
+        {% include p.liquid i=2 n="templates/footer.html" %}
+    </body>
+</html>
